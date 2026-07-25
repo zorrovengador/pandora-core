@@ -27,7 +27,7 @@ pandora-core-qa chat
 Instala un perfil por cliente y ejecútalo en un contenedor o usuario de sistema aislado. No expongas una misma consola administrativa ni un `HOME` compartido a varios clientes.
 
 ```bash
-hermes profile install git@github.com:bizbrain/pandora-core.git --name cliente-acme --alias
+hermes profile install git@github.com:zorrovengador/pandora-core.git --name cliente-acme --alias
 ```
 
 El cliente configura sus propias credenciales y autoriza sus propias integraciones durante el onboarding.
