@@ -1,0 +1,46 @@
+# Credentials and secrets — never distribute or commit
+.env
+.env.*
+auth.json
+auth.lock
+*.pem
+*.key
+
+# Runtime state and customer data
+memories/
+sessions/
+state.db
+state.db-shm
+state.db-wal
+hermes_state.db
+response_store.db
+response_store.db-shm
+response_store.db-wal
+logs/
+workspace/
+plans/
+home/
+local/
+
+# Runtime and generated files
+gateway.pid
+gateway_state.json
+processes.json
+active_profile
+.update_check
+image_cache/
+audio_cache/
+document_cache/
+browser_screenshots/
+cache/
+checkpoints/
+sandboxes/
+backups/
+.hermes_history
+errors.log
+
+# Development environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

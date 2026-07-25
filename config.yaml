@@ -1,0 +1,29 @@
+# Pandora Core defaults. Each tenant configures its own model and credentials during onboarding.
+_config_version: 33
+
+display:
+  language: es
+
+agent:
+  max_turns: 40
+  tool_use_enforcement: true
+
+terminal:
+  # On host deployments, isolate external CLI state per Hermes profile.
+  # Production multi-tenant deployments should additionally run one container or OS user per tenant.
+  home_mode: profile
+  timeout: 180
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+
+security:
+  redact_secrets: true
+  tirith_enabled: true
+
+privacy:
+  redact_pii: true
+
+approvals:
+  mode: smart

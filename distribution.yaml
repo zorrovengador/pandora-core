@@ -1,0 +1,20 @@
+name: pandora-core
+version: 1.0.0
+description: "Pandora Core by Bizbrain: asistente operativo empresarial privado, con onboarding autónomo y conectores propiedad del cliente."
+hermes_requires: ">=0.12.0"
+author: "Bizbrain"
+license: "Proprietary"
+
+env_requires:
+  - name: OPENAI_API_KEY
+    description: "API key de OpenAI del proyecto del cliente. Se recomienda usar una cuenta y presupuesto propios del cliente."
+    required: true
+
+distribution_owned:
+  - SOUL.md
+  - skills/
+  - cron/
+  - mcp.json
+  - distribution.yaml
+  - README.md
+  - docs/
