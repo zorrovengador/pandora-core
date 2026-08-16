@@ -22,6 +22,8 @@ pandora-core-qa setup
 pandora-core-qa chat
 ```
 
+Antes del onboarding, el operador prepara el runtime y el proveedor de modelo fuera de la sesión del cliente. El Director General no proporciona ni pega credenciales del modelo en el chat.
+
 ## Producción multi-tenant
 
 Instala un perfil por cliente y ejecútalo en un contenedor o usuario de sistema aislado. No expongas una misma consola administrativa ni un `HOME` compartido a varios clientes.
@@ -30,7 +32,7 @@ Instala un perfil por cliente y ejecútalo en un contenedor o usuario de sistema
 hermes profile install git@github.com:zorrovengador/pandora-core.git --name cliente-acme --alias
 ```
 
-El cliente configura sus propias credenciales y autoriza sus propias integraciones durante el onboarding.
+Durante el onboarding, el cliente autoriza únicamente las integraciones necesarias mediante sus flujos oficiales; las credenciales son gestionadas por el runtime o el operador, nunca copiadas al repositorio ni solicitadas en mensajes.
 
 ## Actualización
 
@@ -38,7 +40,7 @@ El cliente configura sus propias credenciales y autoriza sus propias integracion
 hermes profile update cliente-acme
 ```
 
-Las actualizaciones conservan datos y credenciales del cliente. `config.yaml` se conserva por defecto; utiliza `--force-config` sólo tras revisar el impacto.
+Las actualizaciones conservan datos y credenciales del cliente. `config.yaml` se conserva por defecto; utiliza `--force-config` solo después de revisar el impacto.
 
 ## Versionado
 
