@@ -5,8 +5,8 @@ Distribución privada de Hermes para desplegar asistentes operativos empresarial
 ## Qué incluye
 
 - Identidad, políticas de seguridad y reglas de aprobación de Pandora.
-- Onboarding conversacional autónomo.
-- Guías de conexión y operación mediante Composio.
+- Onboarding conversacional que valida capacidades ya aprovisionadas.
+- Guías de operación mediante Composio sobre conexiones ya configuradas.
 - Modelo de trabajo para documentos, correo, calendario, investigación y automatización con aprobación.
 - Configuración base que protege secretos y aísla el `HOME` de herramientas por perfil.
 
@@ -22,7 +22,7 @@ pandora-core-qa setup
 pandora-core-qa chat
 ```
 
-Antes del onboarding, el operador prepara el runtime y el proveedor de modelo fuera de la sesión del cliente. El Director General no proporciona ni pega credenciales del modelo en el chat.
+Antes de instalar la personalidad y las skills, el operador aprovisiona fuera de la conversación el runtime, proveedor/modelo, presupuesto, límites y conexiones autorizadas del tenant. La instalación y el onboarding no solicitan, capturan ni configuran credenciales.
 
 ## Producción multi-tenant
 
@@ -32,7 +32,7 @@ Instala un perfil por cliente y ejecútalo en un contenedor o usuario de sistema
 hermes profile install git@github.com:zorrovengador/pandora-core.git --name cliente-acme --alias
 ```
 
-Durante el onboarding, el cliente autoriza únicamente las integraciones necesarias mediante sus flujos oficiales; las credenciales son gestionadas por el runtime o el operador, nunca copiadas al repositorio ni solicitadas en mensajes.
+El onboarding valida y documenta las integraciones ya aprovisionadas; no inicia OAuth ni solicita credenciales. Si una capacidad requerida no está disponible, la marca como `bloqueado por aprovisionamiento` para resolución fuera de la conversación.
 
 ## Actualización
 
