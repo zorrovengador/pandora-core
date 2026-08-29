@@ -1,14 +1,13 @@
 name: pandora-core
-version: 1.0.0
-description: "Pandora Core by Bizbrain: asistente operativo empresarial privado, con onboarding autónomo y conectores propiedad del cliente."
+version: 1.0.1
+description: "Pandora Core by Bizbrain: distribución sin provisión de credenciales."
 hermes_requires: ">=0.12.0"
 author: "Bizbrain"
 license: "Proprietary"
 
-env_requires:
-  - name: OPENAI_API_KEY
-    description: "API key de OpenAI del proyecto del cliente. Se recomienda usar una cuenta y presupuesto propios del cliente."
-    required: true
+# El runtime, modelo y conexiones del tenant se aprovisionan antes de instalar
+# esta distribución. Las skills verifican capacidades disponibles; nunca piden
+# ni configuran credenciales durante instalación, onboarding o conversación.
 
 distribution_owned:
   - SOUL.md

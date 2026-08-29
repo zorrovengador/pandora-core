@@ -2,9 +2,9 @@
 
 - [ ] Se identificó empresa, responsable operativo y administradores autorizados.
 - [ ] Se documentó el objetivo principal y los tres primeros flujos prioritarios.
-- [ ] El operador preparó el runtime y el proveedor/modelo; **no se solicitan credenciales de LLM al cliente durante el onboarding**.
+- [ ] Antes de instalar personalidad y skills, el operador aprovisionó runtime, proveedor/modelo, presupuesto, límites y conexiones requeridas; el onboarding no solicita ni configura credenciales.
 - [ ] Se definieron presupuesto, límite mensual y alerta de consumo fuera de la sesión del cliente.
-- [ ] Se conectaron solo las integraciones necesarias y se verificaron con una lectura inocua.
+- [ ] Se validaron con una lectura inocua sólo las integraciones ya aprovisionadas necesarias para el flujo inicial.
 - [ ] Se registraron aprobadores para correo, calendario, redes, documentos y sistemas operativos.
 - [ ] Se confirmó zona horaria, idioma, tono y horarios de operación.
 - [ ] Se verificó que no hay conectores, memoria ni archivos de otro tenant.
@@ -12,4 +12,4 @@
 
 ## Criterio de bloqueo
 
-Si el runtime o el modelo no están disponibles, se marca `bloqueado por configuración operativa` y se resuelve fuera del onboarding. El cliente no debe pegar API keys, tokens, contraseñas ni credenciales del modelo en el chat.
+Si una capacidad preaprovisionada no está disponible, se marca `bloqueado por aprovisionamiento` y se resuelve fuera de la personalidad instalada. El cliente no debe pegar API keys, tokens, contraseñas ni completar OAuth en el chat.

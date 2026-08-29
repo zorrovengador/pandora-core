@@ -1,6 +1,6 @@
 ---
 name: bizbrain-onboarding
-description: Use when a new Pandora tenant needs to be configured, connected, verified, and handed over without relying on Bizbrain staff for routine setup.
+description: Use when a pre-provisioned Pandora tenant needs validation, scope definition, and handoff without requesting credentials.
 version: 1.0.1
 author: Bizbrain
 license: Proprietary
@@ -14,7 +14,7 @@ metadata:
 
 ## Overview
 
-Convierte una cuenta nueva en un tenant operativo sin mezclar datos, credenciales o decisiones de otros clientes. El objetivo es completar la configuración con conexiones propias del cliente y dejar un resumen verificable de lo habilitado y lo que requiere decisión.
+Valida que un tenant ya aprovisionado sea operativo sin mezclar datos, credenciales o decisiones de otros clientes. El onboarding define objetivo, responsables, aprobaciones y límites de las capacidades disponibles; no configura runtime, modelos, OAuth ni secretos.
 
 El operador prepara el runtime, proveedor de modelo, presupuesto y controles técnicos **antes** de la sesión. El cliente no proporciona ni pega credenciales de LLM en el chat.
 
@@ -30,8 +30,8 @@ No lo uses para asumir permisos, copiar credenciales de otro perfil ni activar a
 
 1. **Identifica al tenant.** Pide empresa, responsable operativo, administradores autorizados, zona horaria, idioma y objetivo principal. Termina cuando cada dato esencial esté confirmado o marcado como pendiente.
 2. **Define el alcance inicial.** Pide los tres flujos que más valor generarán en los próximos 30 días. Clasifica cada uno como lectura, preparación o ejecución. Termina cuando el cliente priorice un primer flujo verificable.
-3. **Verifica el runtime y el modelo preparados por el operador.** Confirma que el proveedor/modelo responde a una consulta inocua y que el presupuesto y límite de consumo están configurados fuera de la sesión del cliente. Si falla, marca `bloqueado por configuración operativa`; no solicites API keys, tokens, contraseñas ni credenciales de LLM al cliente.
-4. **Conecta aplicaciones por necesidad.** Para cada flujo priorizado, explica el acceso mínimo requerido, dirige al cliente al flujo oficial de autorización y verifica con una lectura inocua. Termina cuando cada conexión esté marcada como verificada, pendiente o rechazada.
+3. **Verifica capacidades preaprovisionadas.** Confirma con una consulta inocua que el proveedor/modelo, presupuesto, límites y conectores declarados para el tenant responden. Si algo falta o falla, marca `bloqueado por aprovisionamiento`; no solicites ni configures API keys, tokens, contraseñas, OAuth o credenciales de LLM.
+4. **Delimita integraciones disponibles.** Para cada flujo priorizado, valida la conexión ya aprovisionada con una lectura inocua y registra su alcance. Si la conexión no existe, marca el flujo como pendiente de aprovisionamiento externo; no dirijas OAuth ni pidas autorización/secretos durante el onboarding.
 5. **Define aprobaciones.** Pregunta quién puede autorizar correo, calendario, documentos compartidos, redes sociales y cambios a sistemas operativos. Si no hay respuesta, conserva la regla de aprobación explícita por operación.
 6. **Verifica aislamiento.** Confirma que no se usa una credencial, archivo, memoria ni conector de otro tenant. Termina cuando las pruebas se limiten al tenant actual.
 7. **Entrega el handoff.** Resume objetivo, modelo habilitado por el operador, conexiones verificadas, permisos, responsables, pendientes y primer flujo recomendado. Termina cuando el cliente pueda corregir el resumen y aprobar el siguiente paso.
@@ -42,9 +42,9 @@ No declares una integración como lista solo porque apareció un formulario de O
 
 ## Common Pitfalls
 
-1. **Pedir secretos por chat.** Indica el flujo oficial de autorización; nunca solicites tokens, API keys o contraseñas en mensajes.
+1. **Pedir, capturar o configurar secretos.** El aprovisionamiento ocurre antes de instalar la personalidad y las skills; durante el onboarding sólo se verifica disponibilidad.
 2. **Hacer que el cliente configure el modelo.** El proveedor/modelo y su facturación son una responsabilidad operativa previa; el onboarding valida disponibilidad, no recoge credenciales.
-3. **Conectar todo desde el inicio.** Prioriza el permiso mínimo que habilite el primer flujo de valor.
+3. **Iniciar OAuth desde el onboarding.** Si falta una conexión, documenta el bloqueo de aprovisionamiento; no conviertas la conversación en flujo de conexión.
 4. **Confundir autorización de lectura con ejecución.** Declara el alcance real y conserva aprobación explícita para cambios.
 5. **Duplicar Google Workspace.** Usa `composio_google` y evita conexiones equivalentes por otro router.
 

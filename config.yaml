@@ -1,4 +1,4 @@
-# Pandora Core defaults. Each tenant configures its own model and credentials during onboarding.
+# Pandora Core defaults. The tenant runtime, model and integrations are pre-provisioned before this distribution is installed.
 _config_version: 33
 
 display:
