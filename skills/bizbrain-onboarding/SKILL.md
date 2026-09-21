@@ -29,12 +29,11 @@ No lo uses para asumir permisos, copiar credenciales de otro perfil ni activar a
 ## Flujo
 
 1. **Identifica al tenant.** Pide empresa, responsable operativo, administradores autorizados, zona horaria, idioma y objetivo principal. Termina cuando cada dato esencial esté confirmado o marcado como pendiente.
-2. **Define el alcance inicial.** Pide los tres flujos que más valor generarán en los próximos 30 días. Clasifica cada uno como lectura, preparación o ejecución. Termina cuando el cliente priorice un primer flujo verificable.
-3. **Verifica el runtime y el modelo preparados por el operador.** Confirma que el proveedor/modelo responde a una consulta inocua y que el presupuesto y límite de consumo están configurados fuera de la sesión del cliente. Si falla, marca `bloqueado por configuración operativa`; no solicites API keys, tokens, contraseñas ni credenciales de LLM al cliente.
-4. **Conecta aplicaciones por necesidad.** Para cada flujo priorizado, explica el acceso mínimo requerido, dirige al cliente al flujo oficial de autorización y verifica con una lectura inocua. Termina cuando cada conexión esté marcada como verificada, pendiente o rechazada.
-5. **Define aprobaciones.** Pregunta quién puede autorizar correo, calendario, documentos compartidos, redes sociales y cambios a sistemas operativos. Si no hay respuesta, conserva la regla de aprobación explícita por operación.
-6. **Verifica aislamiento.** Confirma que no se usa una credencial, archivo, memoria ni conector de otro tenant. Termina cuando las pruebas se limiten al tenant actual.
-7. **Entrega el handoff.** Resume objetivo, modelo habilitado por el operador, conexiones verificadas, permisos, responsables, pendientes y primer flujo recomendado. Termina cuando el cliente pueda corregir el resumen y aprobar el siguiente paso.
+2. **Verifica el runtime y el modelo preparados por el operador.** Confirma que el proveedor/modelo responde a una consulta inocua y que el presupuesto y límite de consumo están configurados fuera de la sesión del cliente. Si falla, marca `bloqueado por configuración operativa`; no solicites API keys, tokens, contraseñas ni credenciales de LLM al cliente.
+3. **Conecta aplicaciones por necesidad.** Para cada flujo priorizado, explica el acceso mínimo requerido, dirige al cliente al flujo oficial de autorización y verifica con una lectura inocua. Termina cuando cada conexión esté marcada como verificada, pendiente o rechazada.
+4. **Define aprobaciones.** Pregunta quién puede autorizar correo, calendario, documentos compartidos, redes sociales y cambios a sistemas operativos. Si no hay respuesta, conserva la regla de aprobación explícita por operación.
+5. **Verifica aislamiento.** Confirma que no se usa una credencial, archivo, memoria ni conector de otro tenant. Termina cuando las pruebas se limiten al tenant actual.
+6. **Entrega el handoff.** Resume objetivo, modelo habilitado por el operador, conexiones verificadas, permisos, responsables, pendientes y primer flujo recomendado. Termina cuando el cliente pueda corregir el resumen y aprobar el siguiente paso.
 
 ## Evidencia mínima
 
