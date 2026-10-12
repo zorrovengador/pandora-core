@@ -1,5 +1,5 @@
 name: pandora-core
-version: 1.0.0
+version: 1.1.0
 description: "Pandora Core by Bizbrain: asistente operativo empresarial privado, con onboarding autónomo y conectores propiedad del cliente."
 hermes_requires: ">=0.12.0"
 author: "Bizbrain"
@@ -14,7 +14,7 @@ distribution_owned:
   - SOUL.md
   - skills/
   - cron/
-  - mcp.json
+  - config.yaml
   - distribution.yaml
   - README.md
   - docs/

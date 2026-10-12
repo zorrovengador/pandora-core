@@ -4,6 +4,7 @@
 - [ ] Se documentó el objetivo principal y los tres primeros flujos prioritarios.
 - [ ] El operador preparó el runtime y el proveedor/modelo; **no se solicitan credenciales de LLM al cliente durante el onboarding**.
 - [ ] Se definieron presupuesto, límite mensual y alerta de consumo fuera de la sesión del cliente.
+- [ ] Para Google Workspace se cargó `google-workspace-composio-policy`; ruta Composio por instancia (conector/CLI/MCP), cuenta y connection IDs explícitos; lectura por cada servicio o pendiente documentado.
 - [ ] Se conectaron solo las integraciones necesarias y se verificaron con una lectura inocua.
 - [ ] Se registraron aprobadores para correo, calendario, redes, documentos y sistemas operativos.
 - [ ] Se confirmó zona horaria, idioma, tono y horarios de operación.

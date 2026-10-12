@@ -49,3 +49,15 @@ Las actualizaciones conservan datos y credenciales del cliente. `config.yaml` se
 - `PATCH`: corrección compatible.
 
 Consulta `docs/release-process.md` antes de publicar una versión.
+
+## Google Workspace por Composio (1.1.0)
+
+Cada instalación incluye la política persistente en SOUL y la skill `google-workspace-composio-policy`, con diagnóstico local sin dependencias. Sólo Composio, mediante la ruta verificada de la instancia: conector, CLI o MCP. Un fallo MCP no se interpreta como fallo de CLI/conector. No se distribuye una conexión activa ni credenciales.
+
+El estado de ruta pertenece al cliente en `$HERMES_HOME/integrations/composio-google.json`; no se instala un registro con datos ficticios. Diagnóstico de evidencia (no prueba de red):
+
+```bash
+python3 "$HERMES_HOME/skills/google-workspace-composio-policy/scripts/diagnose.py" --instance tenant-runtime --service drive
+```
+
+`mcp.json` dejó de ser propiedad de la distribución: instalar/actualizar no borra routers o autenticación MCP configurados por el tenant. `config.yaml` ahora sí se entrega en instalación nueva y se conserva en actualización normal. No uses `--force-config` ni `install --force` para una actualización habitual. SOUL y skills distribuidas sí se reemplazan: respalda/integra persona personalizada antes de actualizar. Consulta `docs/composio-policy.md` para alcance, pruebas y rollout.

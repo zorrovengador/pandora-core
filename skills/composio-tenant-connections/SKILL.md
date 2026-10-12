@@ -34,7 +34,7 @@ No lo uses para almacenar, copiar o pedir tokens OAuth en texto plano.
 
 ## Google Workspace
 
-Para Gmail, Drive y Calendar, usa `composio_google` como router canónico del tenant. No crees una segunda conexión equivalente por el router general `composio`, pues duplica autorizaciones y dificulta la revocación.
+Para Gmail, Drive, Calendar, Docs, Sheets y Slides carga `google-workspace-composio-policy`. Composio es obligatorio; la ruta (conector, CLI o MCP) se elige por verificación de la instancia, no por nombre. Si la ruta es MCP, se prefiere `composio_google`; no crees una segunda conexión equivalente por un router general. Un fallo MCP no invalida una CLI autenticada ni un conector funcional.
 
 ## Revocación y fallos
 
@@ -58,5 +58,5 @@ Si una conexión vence, falla o el cliente cambia de personal autorizado:
 - [ ] Dueño de la cuenta autorizó desde el tenant.
 - [ ] Prueba de lectura limitada completada o fallo documentado.
 - [ ] Alcance y finalidad explicados al cliente.
-- [ ] Google Workspace usa sólo `composio_google`.
+- [ ] Google Workspace usa sólo Composio por la ruta verificada de esta instancia (conector, CLI o MCP); cuenta y connection ID explícitos.
 - [ ] Acciones de escritura conservan aprobación explícita.

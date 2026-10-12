@@ -7,6 +7,7 @@ auth.lock
 *.key
 
 # Runtime state and customer data
+integrations/
 memories/
 sessions/
 state.db

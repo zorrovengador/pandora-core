@@ -45,7 +45,7 @@ No declares una integración como lista solo porque apareció un formulario de O
 2. **Hacer que el cliente configure el modelo.** El proveedor/modelo y su facturación son una responsabilidad operativa previa; el onboarding valida disponibilidad, no recoge credenciales.
 3. **Conectar todo desde el inicio.** Prioriza el permiso mínimo que habilite el primer flujo de valor.
 4. **Confundir autorización de lectura con ejecución.** Declara el alcance real y conserva aprobación explícita para cambios.
-5. **Duplicar Google Workspace.** Usa `composio_google` y evita conexiones equivalentes por otro router.
+5. **Duplicar Google Workspace.** Carga `google-workspace-composio-policy`; conserva la ruta Composio verificada (conector, CLI o MCP). `composio_google` es preferido sólo para MCP. No reautorices por un fallo de otra ruta.
 
 ## Verification Checklist
 
