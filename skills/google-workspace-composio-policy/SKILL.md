@@ -1,7 +1,7 @@
 ---
 name: google-workspace-composio-policy
 description: Use for every Google Workspace request; bind the current tenant to a verified Composio route and diagnose connector, CLI and MCP independently.
-version: 1.0.0
+version: 1.1.0
 author: Bizbrain
 license: Proprietary
 metadata:
@@ -14,6 +14,8 @@ metadata:
 ## Alcance y límites
 
 Gmail, Calendar, Drive, Docs, Sheets y Slides deben operar por Composio. No uses gws, APIs directas, SDK Google, tokens locales ni navegador como sustituto sin excepción explícita del dueño para ese alcance. Si Composio falla, informa el bloqueo real, no cambies silenciosamente de proveedor. Esta política de comportamiento no es un sandbox ni un interceptor de herramientas: refuérzala con controles de acceso del runtime.
+
+Esta regla es persistente: ante una solicitud de negocio relacionada con estos servicios, carga y usa la ruta Composio autorizada sin exigir que el usuario diga "usa Composio" ni repita un prompt técnico. Si la interfaz exige aprobación de ejecución, solicita esa aprobación en la propia interfaz y conserva la solicitud original para continuar después; no confundas esa aprobación con credenciales u OAuth ya configurados.
 
 ## Selección por instancia
 
@@ -46,6 +48,8 @@ Distingue ruta ausente, almacenamiento de credenciales inaccesible, autorizació
 - Política en SOUL y skill completa instalada sin credenciales.
 - Ruta, cuenta y conexión verificadas en el runtime que atiende al cliente; cada servicio pendiente hasta lectura real.
 - Nueva sesión conversacional: pedir una lectura sin mencionar Composio y verificar que selecciona la ruta Composio autorizada. Registrar bloqueo si el modelo/runtime no están listos.
+- Cerrar sesión, volver a entrar y repetir una lectura mínima sin mencionar Composio. Una respuesta vacía, espera indefinida, petición de repetir el prompt técnico o éxito exclusivo desde la cuenta administradora falla la aceptación.
+- En la interfaz del usuario sólo se expone el modelo amigable y las integraciones mínimas; los identificadores técnicos/base pueden seguir existiendo como dependencia interna, pero no deben aparecer como opción utilizable.
 - Prueba negativa de acceso cruzado bajo aislamiento OS/contenedor; no asumir que un perfil es sandbox.
 - Actualización preserva config, MCP, registro local, .env, auth, memoria, sesiones y cron del tenant. Respaldar SOUL si hubo personalización: Hermes reemplaza el SOUL distribuido; no promete fusionar persona.
 - Tras cambios de runtime/toolkit/distribución, repetir lectura real y verificar identidad. No activar cron ni reconectar servicios como parte de instalar la política.
