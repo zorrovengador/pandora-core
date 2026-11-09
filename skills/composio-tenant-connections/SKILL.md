@@ -18,7 +18,7 @@ Conecta aplicaciones mediante autorización del propio cliente, aplicando mínim
 
 ## When to Use
 
-- Un flujo requiere Gmail, Drive, Calendar, Granola, Odoo, CRM, redes sociales u otra aplicación conectada.
+- Un flujo requiere Gmail, Drive, Calendar, Granola, Odoo, CRM, redes sociales u otra aplicación conectada. Carga también `google-workspace-composio-policy` para toda app conectada: comprueba CLI primero en este runtime; MCP de la misma cuenta/tenant solo si CLI es inutilizable por las causas permitidas, nunca para eludir autorización, permisos, cuenta incorrecta o política.
 - Se debe validar, renovar o revocar una conexión existente.
 - Un cliente pide saber qué puede hacer Pandora con una cuenta conectada.
 
@@ -34,7 +34,7 @@ No lo uses para almacenar, copiar o pedir tokens OAuth en texto plano.
 
 ## Google Workspace
 
-Para Gmail, Drive, Calendar, Docs, Sheets y Slides carga `google-workspace-composio-policy`. Composio es obligatorio; la ruta (conector, CLI o MCP) se elige por verificación de la instancia, no por nombre. Si la ruta es MCP, se prefiere `composio_google`; no crees una segunda conexión equivalente por un router general. Un fallo MCP no invalida una CLI autenticada ni un conector funcional.
+Para Gmail, Drive, Calendar, Docs, Sheets y Slides Composio es obligatorio. Para toda aplicación conectada carga `google-workspace-composio-policy` y aplica su precedencia CLI y bloqueo de fallback por denegación. Si CLI no es utilizable por las causas permitidas, MCP requiere la misma cuenta/tenant verificados; `composio_google` es sólo un nombre preferido para Workspace, no prueba de identidad. No crees una segunda conexión equivalente.
 
 ## Revocación y fallos
 
@@ -58,5 +58,5 @@ Si una conexión vence, falla o el cliente cambia de personal autorizado:
 - [ ] Dueño de la cuenta autorizó desde el tenant.
 - [ ] Prueba de lectura limitada completada o fallo documentado.
 - [ ] Alcance y finalidad explicados al cliente.
-- [ ] Google Workspace usa sólo Composio por la ruta verificada de esta instancia (conector, CLI o MCP); cuenta y connection ID explícitos.
+- [ ] Toda aplicación conectada verifica CLI primero; fallback MCP sólo por causa admitida y con cuenta/tenant idénticos; Workspace usa sólo Composio, con connection ID explícito.
 - [ ] Acciones de escritura conservan aprobación explícita.

@@ -1,6 +1,6 @@
 ---
 name: google-workspace-composio-policy
-description: Use for every Google Workspace request; bind the current tenant to a verified Composio route and diagnose connector, CLI and MCP independently.
+description: Use for any connected app via Composio; prioritize CLI in the current runtime, gate same-tenant MCP fallback, and safely sync SOUL.
 version: 1.1.0
 author: Bizbrain
 license: Proprietary
@@ -9,7 +9,23 @@ metadata:
     tags: [google-workspace, composio, tenant, safety]
 ---
 
-# Google Workspace exclusivamente por Composio
+# Composio CLI primero; Google Workspace exclusivamente por Composio
+
+Para **cualquier aplicación conectada** (incluidas Granola, Odoo y Workspace), carga esta política aunque el usuario no mencione Composio. Primero identifica el runtime/perfil, usuario, HOME/PATH y herramientas terminal realmente expuestas en ESTA superficie. Una skill no habilita terminal ni CLI en un API server que no los exponga; Telegram funcional no demuestra Open WebUI funcional.
+
+## Regla de decisión CLI-first (cada operación)
+
+1. Comprueba primero si la herramienta terminal está disponible aquí, si `composio` existe en el PATH de este proceso, ayuda/versión, `composio whoami`, conexión exacta (`composio connections list` y, si aplica, `composio link <toolkit> --list`) y lectura inocua del servicio solicitado. Descubre comandos/esquemas vigentes; nunca uses credenciales de otro perfil. Verifica cuenta Composio, tenant, cuenta de la aplicación y connection ID antes de escribir.
+2. Si CLI funciona, úsala. Solo permite **considerar** MCP cuando CLI no es utilizable por ejecutable ausente, autenticación no disponible (sin sesión utilizable), conexión no operativa o fallo técnico comprobado. Autenticación no disponible no significa autorización denegada: permisos/scopes insuficientes, cuenta equivocada, denegación de autorización o política bloquean la operación y **nunca** permiten cambiar ruta para eludir el bloqueo. Ante error genérico, causa o identidad incierta, detente y pide aclaración.
+3. Antes de usar MCP, verifica que las herramientas están expuestas y autenticadas en esta superficie, que su cuenta **y tenant** coinciden con los esperados y que la conexión exacta pasa una lectura real inocua. Si no puedes demostrarlo, bloquea; no supongas disponibilidad ni crees enlaces, reconexiones o permisos nuevos. `scripts/route_policy.py` implementa el gate puro de estados observados; no descubre conexiones ni reemplaza lecturas reales. Un conector expuesto tampoco es atajo para eludir una denegación.
+
+## Sincronización acotada del SOUL de esta instancia
+
+Al cargar/ejecutar esta skill, verifica identidad efectiva del proceso, perfil activo y HERMES_HOME/SOUL.md de **esta** instancia. Si el runtime no ofrece acceso a archivos o no puedes verificar ruta/identidad, **no escribas**: informa el bloqueo. Solo con identidad comprobada, ejecuta:
+
+    python3 "$HERMES_HOME/skills/google-workspace-composio-policy/scripts/sync_soul.py" --home "$HERMES_HOME" --profile "$HERMES_PROFILE"
+
+`HERMES_PROFILE` debe estar realmente identificado en el proceso (no se infiere de otra superficie). El script exige coincidencia de perfil y HOME, propietario y archivo regular no enlazado; respalda bytes antes de escribir, preserva persona y texto externo, inserta/actualiza un bloque delimitado sin secretos y rechaza marcadores duplicados o corruptos. Si ya coincide no escribe ni respalda; tras escritura relee y valida contenido y respaldo. No ejecutes en otro perfil/tenant ni sobre Yogibot sin identidad y autorización de ese alcance; no modifiques credenciales, config ni otros archivos. Si un instalador reemplaza SOUL por su cuenta, esta sincronización no lo previene: coordina instalación separadamente.
 
 ## Alcance y límites
 
@@ -20,11 +36,11 @@ Esta regla es persistente: ante una solicitud de negocio relacionada con estos s
 ## Selección por instancia
 
 1. Identifica runtime/perfil, usuario del proceso y HOME efectivo. Carga sólo el registro local `integrations/composio-google.json` bajo el HERMES_HOME actual, si existe. No busques credenciales de otros perfiles. Un cliente comercial requiere cuenta Composio propia cuando se exige aislamiento de cuota/facturación: un proyecto distinto no basta.
-2. Descubre las rutas disponibles independientemente:
+2. Descubre las rutas disponibles independientemente, con CLI prioritario según la regla anterior:
    - Conector: herramientas Composio realmente expuestas en esta conversación; descubre sus esquemas vigentes antes de invocarlas. No exige binario local.
    - CLI: binario en el PATH efectivo del runtime; consulta su ayuda y versión instalada. Verifica su autenticación desde ese mismo usuario/HOME; no inventes subcomandos, no reutilices caches ajenos.
    - MCP: servidor configurado y herramientas efectivamente expuestas y autenticadas. `composio_google` es nombre preferido del router si se elige MCP, no requisito para conector o CLI.
-3. Conserva la ruta ya verificada. Binario ausente sólo significa CLI ausente; un error OAuth MCP sólo afecta MCP. Variables ausentes no prueban indisponibilidad de conector ni CLI. No reconectes, dupliques routers ni cambies de cuenta para corregir un fallo de otra ruta.
+3. Revalida CLI primero aun si existe una ruta histórica. Binario ausente sólo significa CLI ausente; un error OAuth MCP sólo afecta MCP. Variables ausentes no prueban indisponibilidad de conector ni CLI. No reconectes, dupliques routers ni cambies de cuenta para corregir un fallo de otra ruta.
 4. Para CADA servicio habilitado verifica identidad Google aprobada, cuenta/organización Composio y conexión exacta. Si existen varias conexiones, fija el identificador explícitamente en la operación según el esquema real. Si el esquema/ruta no permite desambiguar, bloquea; no selecciones el primero ni el default.
 5. Ejecuta una lectura inocua, mínima y sin escritura para el servicio solicitado. Obtener listado de conexiones o una respuesta de ayuda no prueba acceso a Gmail/Drive/etc. Registra sólo resultado, fecha UTC, identidad y referencia de evidencia sanitizada; nunca contenido de correo, tokens, cabeceras, URLs de OAuth ni salida cruda. Marca servicios no probados como pendientes.
 6. Comprueba de nuevo conexión/identidad en la operación actual; el registro histórico no es autorización ni garantiza salud presente. Para escritura aplica `bizbrain-approvals` y verifica el objetivo exacto por lectura posterior.

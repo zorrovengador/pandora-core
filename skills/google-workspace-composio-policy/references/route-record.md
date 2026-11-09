@@ -36,4 +36,4 @@ Aceptación de una ruta:
 4. Prueba conversacional en sesión nueva y prueba negativa de acceso entre tenants.
 5. Guardar evidencia sanitizada fuera del producto; conservar pendientes explícitos.
 
-La instalación de Core no efectúa OAuth ni habilita servicios. Estado missing = pendiente, no Composio inexistente. MCP fallido con CLI autenticada = MCP fallido, no caída de la CLI. Conector funcional sin ejecutable CLI = conector funcional.
+La instalación de Core no efectúa OAuth ni habilita servicios. Estado missing = pendiente, no Composio inexistente. MCP fallido con CLI autenticada = MCP fallido, no caída de la CLI. Conector funcional sin ejecutable CLI es evidencia de ese conector, pero no convierte la denegación de otra ruta en autorización para eludirla. Este registro histórico no sustituye la precedencia CLI-first ni las verificaciones de identidad del momento.
